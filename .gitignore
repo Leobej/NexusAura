@@ -25,3 +25,35 @@ replay_pid*
 
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
+
+# Gradle files
+.gradle
+/build
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Android Studio
+.gradle/
+.idea/
+*.iml
+*.iws
+.DS_Store
+
+# Node.js
+node_modules/
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+
+# Docker
+*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
