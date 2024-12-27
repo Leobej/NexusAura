@@ -1,0 +1,4 @@
+Jenkins Commands:
+
+net stop jenkins
+net start jenkins
