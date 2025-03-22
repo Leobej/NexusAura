@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FollowsDTO {
+public class FollowDTO {
     private String followingUser; // Username or ID of the following user
     private String followedUser;  // Username or ID of the followed user
     private String createdAt;     // Timestamp of follow action

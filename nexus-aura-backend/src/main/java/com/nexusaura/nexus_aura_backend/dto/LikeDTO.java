@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LikesDTO {
+public class LikeDTO {
     private Integer likeID;
     private Integer postID;     // ID of the liked post
     private Integer commentID;  // ID of the liked comment (optional)
