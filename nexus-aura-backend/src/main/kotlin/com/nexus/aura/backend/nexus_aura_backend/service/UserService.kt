@@ -1,9 +1,9 @@
 package com.nexus.aura.backend.nexus_aura_backend.service
 
+import com.nexus.aura.backend.nexus_aura_backend.dto.UserProfileUpdateRequest
 import com.nexus.aura.backend.nexus_aura_backend.dto.UserRegistrationRequest
 import com.nexus.aura.backend.nexus_aura_backend.dto.UserResponse
 import com.nexus.aura.backend.nexus_aura_backend.entity.User
-import com.nexus.aura.backend.nexus_aura_backend.entity.UserProfileUpdateRequest
 import com.nexus.aura.backend.nexus_aura_backend.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service

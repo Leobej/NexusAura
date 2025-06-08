@@ -1,14 +1,10 @@
 package com.nexus.aura.backend.nexus_aura_backend.controller
 
-import com.nexus.aura.backend.nexus_aura_backend.dto.ResetPasswordRequest
-import com.nexus.aura.backend.nexus_aura_backend.dto.UserRegistrationRequest
-import com.nexus.aura.backend.nexus_aura_backend.dto.UserResponse
-import com.nexus.aura.backend.nexus_aura_backend.entity.EmailRequest
-import com.nexus.aura.backend.nexus_aura_backend.entity.JwtResponse
-import com.nexus.aura.backend.nexus_aura_backend.entity.LoginRequest
+import com.nexus.aura.backend.nexus_aura_backend.dto.*
 import com.nexus.aura.backend.nexus_aura_backend.exception.InvalidTokenException
 import com.nexus.aura.backend.nexus_aura_backend.exception.TokenExpiredException
 import com.nexus.aura.backend.nexus_aura_backend.service.AuthService
+import com.nexus.aura.backend.nexus_aura_backend.service.JwtBlacklistService
 import com.nexus.aura.backend.nexus_aura_backend.service.UserService
 import com.nexus.aura.backend.nexus_aura_backend.util.JwtUtil
 import jakarta.validation.Valid
@@ -26,7 +22,8 @@ class AuthController(
     private val userService: UserService,
     private val authenticationManager: AuthenticationManager,
     private val authService: AuthService,
-    private val jwtUtil: JwtUtil
+    private val jwtUtil: JwtUtil,
+    private val jwtBlacklistService: JwtBlacklistService
 ) {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
@@ -75,4 +72,16 @@ class AuthController(
         }
     }
 
+    @PostMapping("/logout")
+    fun logout(@RequestHeader("Authorization") authHeader: String?): ResponseEntity<*> {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body("Invalid Authorization header")
+        }
+
+        val token = authHeader.removePrefix("Bearer ").trim()
+
+        jwtBlacklistService.blacklistToken(token)
+
+        return ResponseEntity.ok(LogoutResponse("Successfully logged out"))
+    }
 }

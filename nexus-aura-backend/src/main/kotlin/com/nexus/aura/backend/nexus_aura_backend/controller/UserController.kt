@@ -1,13 +1,11 @@
 package com.nexus.aura.backend.nexus_aura_backend.controller
 
+import com.nexus.aura.backend.nexus_aura_backend.dto.UserProfileUpdateRequest
 import com.nexus.aura.backend.nexus_aura_backend.dto.UserResponse
-import com.nexus.aura.backend.nexus_aura_backend.entity.User
-import com.nexus.aura.backend.nexus_aura_backend.entity.UserProfileUpdateRequest
 import com.nexus.aura.backend.nexus_aura_backend.service.UserService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
-import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
