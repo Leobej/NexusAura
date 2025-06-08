@@ -1,16 +1,18 @@
 package com.nexus.aura.backend.nexus_aura_backend.util
 
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
+import javax.crypto.SecretKey
 
 @Component
-class JwtUtil {
-
-    private val jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS256)
-    private val jwtExpirationMs = 3600000 // 1 hour
+class JwtUtil(
+    @Value("\${jwt.secret}") secretBase64: String,
+    @Value("\${jwt.expiration}") private val jwtExpirationMs: Long
+) {
+    private val jwtSecret: SecretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretBase64))
 
     fun generateToken(username: String): String {
         val now = Date()
@@ -22,6 +24,11 @@ class JwtUtil {
             .setExpiration(expiryDate)
             .signWith(jwtSecret)
             .compact()
+    }
+
+    fun getExpirationDate(token: String): Date {
+        val claims = Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token)
+        return claims.body.expiration
     }
 
     fun validateToken(token: String): Boolean {
