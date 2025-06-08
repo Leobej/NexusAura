@@ -19,11 +19,11 @@ class User(
     val email: String,
 
     @Column(nullable = false)
-    val passwordHash: String,
+    var passwordHash: String,
 
-    val fullName: String? = null,
-    val bio: String? = null,
-    val profilePictureUrl: String? = null,
+    var fullName: String? = null,
+    var bio: String? = null,
+    var profilePictureUrl: String? = null,
 
     @Column(nullable = false)
     val createdAt: Date = Date()
