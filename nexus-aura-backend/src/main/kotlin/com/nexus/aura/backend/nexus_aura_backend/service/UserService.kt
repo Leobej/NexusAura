@@ -3,6 +3,7 @@ package com.nexus.aura.backend.nexus_aura_backend.service
 import com.nexus.aura.backend.nexus_aura_backend.dto.UserRegistrationRequest
 import com.nexus.aura.backend.nexus_aura_backend.dto.UserResponse
 import com.nexus.aura.backend.nexus_aura_backend.entity.User
+import com.nexus.aura.backend.nexus_aura_backend.entity.UserProfileUpdateRequest
 import com.nexus.aura.backend.nexus_aura_backend.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -42,4 +43,39 @@ class UserService(
             createdAt = savedUser.createdAt
         )
     }
+
+    fun updateUserProfile(email: String, request: UserProfileUpdateRequest): UserResponse {
+        val user = userRepository.findByEmail(email)
+            ?: throw IllegalArgumentException("User not found")
+
+        request.fullName?.let { user.fullName = it }
+        request.bio?.let { user.bio = it }
+        request.profilePictureUrl?.let { user.profilePictureUrl = it }
+
+        val saved = userRepository.save(user)
+
+        return UserResponse(
+            id = saved.id,
+            userName = saved.username,
+            email = saved.email,
+            fullName = saved.fullName,
+            bio = saved.bio,
+            profilePictureUrl = saved.profilePictureUrl,
+            createdAt = saved.createdAt
+        )
+    }
+
+    /**
+     * Finds a user by either their email or username.
+     * If the identifier contains an '@', it is treated as an email.
+     */
+
+    internal fun findUserByIdentifier(identifier: String): User? {
+        return if (identifier.contains("@")) {
+            userRepository.findByEmail(identifier)
+        } else {
+            userRepository.findByUsername(identifier)
+        }
+    }
+
 }
