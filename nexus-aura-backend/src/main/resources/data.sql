@@ -6,7 +6,12 @@ CREATE TABLE users (
     full_name VARCHAR(100),
     bio TEXT,
     profile_picture_url TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT TRUE,
+    is_locked BOOLEAN DEFAULT FALSE,
+    is_email_verified BOOLEAN DEFAULT FALSE,
+    is_verified BOOLEAN DEFAULT FALSE,
+    is_disabled BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE posts (
@@ -14,7 +19,7 @@ CREATE TABLE posts (
     user_id UUID REFERENCES users(id),
     content TEXT,
     media_url TEXT,
-    media_type VARCHAR(10), -- e.g., 'image', 'video'
+    media_type VARCHAR(10),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

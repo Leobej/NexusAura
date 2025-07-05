@@ -35,7 +35,23 @@ class JwtUtil(
         return try {
             Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token)
             true
+        } catch (e: io.jsonwebtoken.ExpiredJwtException) {
+            // Optionally log: Token expired
+            false
+        } catch (e: io.jsonwebtoken.security.SecurityException) {
+            // Optionally log: Invalid signature
+            false
+        } catch (e: io.jsonwebtoken.MalformedJwtException) {
+            // Optionally log: Malformed token
+            false
+        } catch (e: io.jsonwebtoken.UnsupportedJwtException) {
+            // Optionally log: Unsupported token
+            false
+        } catch (e: IllegalArgumentException) {
+            // Optionally log: Illegal argument
+            false
         } catch (e: Exception) {
+            // Optionally log: Unknown error
             false
         }
     }

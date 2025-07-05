@@ -13,5 +13,8 @@ data class PasswordResetToken(
     @JoinColumn(nullable = false, name = "user_id")
     val user: User,
 
-    val expiryDate: LocalDateTime = LocalDateTime.now().plusHours(1)
+    val expiryDate: LocalDateTime = LocalDateTime.now().plusHours(1),
+
+    @Column(nullable = false)
+    var isUsed: Boolean = false
 )

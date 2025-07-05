@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull
 
 data class UserRegistrationRequest(
     @field:NotEmpty(message = "Username must not be empty")
-    val userName: String,
+    val username: String,
 
     @field:Email(message = "Invalid email format")
     @field:NotNull(value = "Email must not be null")
