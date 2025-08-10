@@ -144,8 +144,8 @@ Nexus Aura is deployed within a Kubernetes cluster, leveraging Docker containers
 ### Installation
 
 1. Clone the repository: `git clone https://github.com/Leobej/NexusAura.git`
-2. Navigate to the backend directory: `cd backend`
-3. Build and run the backend application: `./mvnw spring-boot:run`
+2. Navigate to the backend directory: `cd nexus-aura-backend`
+3. Build and run the backend application: `./gradlew bootRun`
 4. Navigate to the web app directory: `cd web-app`
 5. Install dependencies: `npm install`
 6. Start the web app: `npm start`
