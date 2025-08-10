@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.nexus.aura.domain.models.FeedViewModel
 import com.nexus.aura.ui.feature.feed.FeedScreen
+import com.nexus.aura.ui.feature.navbar.NavigationBarExample
 import com.nexus.aura.ui.theme.NexusAuraAndroidTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,35 +26,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NexusAuraAndroidTheme {
-                val feedViewModel: FeedViewModel = hiltViewModel()
-                val posts by feedViewModel.feedPosts.collectAsState()
 
                 Scaffold { innerPadding ->
-                    FeedScreen(
-                        posts = posts,
-                        onLikeClicked = { feedViewModel.toggleLike(it) },
-                        onCommentClicked = { /* navigate to comment */ },
-                        onProfileClicked = { /* TODO */ },
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+                    NavigationBarExample()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NexusAuraAndroidTheme {
-        Greeting("Android")
     }
 }
