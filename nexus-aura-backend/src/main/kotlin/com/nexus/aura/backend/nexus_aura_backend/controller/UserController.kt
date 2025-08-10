@@ -23,8 +23,8 @@ class UserController(
         @Valid @RequestBody request: UserProfileUpdateRequest
     ): ResponseEntity<*> {
         return try {
-            val username = authentication.name
-            val updatedUser = userService.updateUserProfile(username, request)
+            val email = authentication.name
+            val updatedUser = userService.updateUserProfile(email, request)
             ResponseEntity.ok(updatedUser)
         } catch (e: com.nexus.aura.backend.nexus_aura_backend.exception.UserNotFoundException) {
             ResponseEntity.status(404).body(e.message ?: "User not found")
