@@ -4,6 +4,11 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import jakarta.persistence.OneToMany
+import jakarta.persistence.FetchType
+import jakarta.persistence.ManyToMany
+import jakarta.persistence.JoinTable
+import jakarta.persistence.JoinColumn
 import java.util.*
 
 @Entity
@@ -35,7 +40,21 @@ class User private constructor(
     var isDisabled: Boolean = false,
 
     @Column(nullable = false)
-    var isEmailVerified: Boolean = false
+    var isEmailVerified: Boolean = false,
+
+    @OneToMany(mappedBy = "user", cascade = [jakarta.persistence.CascadeType.ALL], fetch = FetchType.LAZY)
+    var posts: List<Post> = mutableListOf(),
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "user_following",
+        joinColumns = [JoinColumn(name = "follower_id")],
+        inverseJoinColumns = [JoinColumn(name = "following_id")]
+    )
+    var following: MutableSet<User> = mutableSetOf(),
+
+    @ManyToMany(mappedBy = "following", fetch = FetchType.LAZY)
+    var followers: MutableSet<User> = mutableSetOf()
 ) {
     data class Builder(
         var id: UUID = UUID.randomUUID(),
