@@ -63,10 +63,11 @@ fun AppNavHost(
             val feedViewModel: FeedViewModel = hiltViewModel()
             val posts by feedViewModel.feedPosts.collectAsState()
             FeedScreen(
-                posts = posts,
-                onLikeClicked = { feedViewModel.toggleLike(it) },
-                onCommentClicked = { /* TODO */ },
-                onProfileClicked = { /* TODO */ },
+//                posts = posts,
+                posts = com.nexus.aura.data.model.mockPosts,
+                onLikeClicked = {},
+                onCommentClicked = {},
+                onProfileClicked = {},
                 modifier = Modifier
             )
         }
@@ -77,9 +78,8 @@ fun AppNavHost(
     }
 }
 
-@Preview()
 @Composable
-fun NavigationBarExample(modifier: Modifier = Modifier) {
+fun MainNavScaffold(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val startDestination = Destination.FEED
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
@@ -113,4 +113,10 @@ fun NavigationBarExample(modifier: Modifier = Modifier) {
     ) { contentPadding ->
         AppNavHost(navController, startDestination, modifier = Modifier.padding(contentPadding))
     }
+}
+
+@Preview()
+@Composable
+fun NavigationBarExample(modifier: Modifier = Modifier) {
+    MainNavScaffold(modifier = modifier)
 }
